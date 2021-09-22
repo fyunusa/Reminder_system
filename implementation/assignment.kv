@@ -1,0 +1,88 @@
+<Assignment_page>:
+    id: Assignment_widget
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        MDToolbar:
+            title: 'Assignments'
+            md_bg_color: .2,.2,.2,1
+            specific_text_color: 1,1,1,1
+            icon: 'accounts-list'
+
+        MDBottomNavigation:
+            #color stuff
+            panel_color:.2,.2,.2,1
+
+            MDBottomNavigationItem:
+                name:'Assignments'
+                text: 'Assignments'
+                icon: 'folder'
+                on_tab_press: root.clicker_button()
+            #-----------------------------------------------------------#          
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size: root.width, root.height
+                    spacing:10
+                    #padding: 30
+                    padding:  [10, 10, 10, 10]
+
+                    RoundedButton2:
+                        id: Assignment_widget
+                        text: "Assignments"
+                        size_hint: (0.3, 0.1)
+                        #font_size: 40
+                        on_press:
+                            root.clicker_button()
+            #----------------------------------------------------------------------------#
+
+            MDBottomNavigationItem:
+                name:'Home'
+                text: 'Home'
+                icon: 'home'
+                on_tab_press: root.pressed_button_home("Home")
+
+            MDBottomNavigationItem:
+                name:'Calendar'
+                text: 'Calendar'
+                icon: 'calendar'
+                on_tab_press: root.pressed_button_calendar("Calendar")
+
+            MDBottomNavigationItem:
+                name:'UserMenu'
+                text: 'UserMenu'
+                icon: 'account-box'
+                on_tab_press: root.pressed_button_usermenu("UserMenu")
+
+            MDBottomNavigationItem:
+                name:'TimeTable'
+                text: 'TimeTable'
+                icon: 'file'
+                on_tab_press: root.pressed_button_timetable("TimeTable")
+#----------------------------------------------------------------------------#
+
+<RoundedButton2@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (48/255, 84/255, 150/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(40,40), (40, 40), (40, 40), (40, 40)]
+            
+
+<RoundedLabel1@Label>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (0, 0, 255, 0.3)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(40,40), (0, 0), (0, 0), (40, 40)]
+            

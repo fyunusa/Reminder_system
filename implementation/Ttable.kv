@@ -1,0 +1,81 @@
+#:import Factory kivy.factory.Factory
+
+<TimeTable_page>:
+    id: record_widget
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        MDToolbar:
+            title: 'TimeTable'
+            md_bg_color: .2,.2,.2,1
+            specific_text_color: 1,1,1,1
+            icon: 'accounts-list'
+
+        MDBottomNavigation:
+            #color stuff
+            panel_color:.2,.2,.2,1
+
+            MDBottomNavigationItem:
+                name:'TimeTable'
+                text: 'TimeTable'
+                icon: 'folder'
+                on_tab_press: root.clicker_button()
+        #----------------------------------------------------------------------------#
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size: root.width, root.height
+                    spacing:10
+                    padding:  [10, 10, 10, 10]
+                    #padding_bottom: 
+
+                    RoundedButtonTtable:
+                        id: timetable_widget
+                        text: "Click to View TimeTable"
+                        size_hint: (0.3, 0.1)
+                        #font_size: 40
+                        on_release:
+                            root.clicker_button()
+                    
+            #----------------------------------------------------------------------------#
+
+            MDBottomNavigationItem:
+                name:'Home'
+                text: 'Home'
+                icon: 'home'
+                on_tab_press: root.pressed_button_home("Home")
+
+            MDBottomNavigationItem:
+                name:'Calendar'
+                text: 'Calendar'
+                icon: 'calendar'
+                on_tab_press: root.pressed_button_calendar("Calendar")
+
+            MDBottomNavigationItem:
+                name:'UserMenu'
+                text: 'UserMenu'
+                icon: 'account-box'
+                on_tab_press: root.pressed_button_usermenu("UserMenu")
+
+            MDBottomNavigationItem:
+                name:'Assignments'
+                text: 'Assignments'
+                icon: 'file'
+                #on_tab_press: root.pressed_button_assignments("Assignment")
+#----------------------------------------------------------------------------#
+
+<RoundedButtonTtable@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (48/255, 84/255, 150/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(40,40), (40, 40), (40, 40), (40, 40)]
+            
+
+
+

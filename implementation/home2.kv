@@ -1,0 +1,163 @@
+#: import utils kivy.utils
+#: import ScreenManager kivy.uix.screenmanager 
+#: import Screen kivy.uix.screenmanager 
+
+<Home_page>:
+    id: my_widget
+    BoxLayout:
+        orientation: 'vertical'
+
+        MDToolbar:
+            title: 'Home'
+            md_bg_color: .2,.2,.2,1
+            specific_text_color: 1,1,1,1
+            icon: 'home'
+
+        MDBottomNavigation:
+            #color stuff
+            panel_color:.2,.2,.2,1
+
+            MDBottomNavigationItem:
+                name:'Home'
+                text: 'Home'
+                icon: 'home'
+#----------------------------------------------------------------------------#
+                BoxLayout:
+                    orientation: 'vertical'
+                    #size: root.width, root.height
+                    spacing:10
+                    padding: 30
+
+                    Label:
+                        id: label1_widget
+                        text: "Success Quotes"
+                        background_color: (0,0,1,1)
+                        size_hint: (1, 3.5)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [(40,40), (40, 40), (40, 40), (40, 40)]
+
+                    ScrollView:
+                  
+                        MyTile:
+                            source: "./images/1.jpg"
+                            size_hint: (1, 3.5)
+                            text: "[size=14]1.jpg[/size]"
+                        
+                        MyTile:
+                            source: "./images/2.jpg"
+                            size_hint: (1, 3.5)
+                            text: "[size=14]2.jpg[/size]"
+                        
+                        MyTile:
+                            source: "./images/3.jpg"
+                            size_hint: (1, 3.5)
+                            text: "[size=14]3.jpg[/size]"
+                    
+                    Slider:
+                        id: slide_class1
+                        min:
+                        max: 
+                        step: 
+                        orientation: "horizontal"
+                        on_value: root.slide_images(*args)
+                    #--------------------------------------------#
+                    Label:
+                        id: label2_widget
+                        text: "Motivating Factors About Reminder Systems"
+                        background_color: utils.get_color_from_hex('#003366')
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [10]
+                    #--------------------------------------------#
+                    Label:
+                        id: label3_widget
+                        text: "Advantages Of Reminder Systems"
+                        background_color: utils.get_color_from_hex('#000066')
+                        #size_hint: (1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [10]
+               
+                    #--------------------------------------------#
+                    GridLayout:
+                        cols: 2
+                        spacing:10
+                        #--------------------------------------------#
+                        SignUpButton:
+                            id: ButtonSignUp
+                            text: "Sign Up"
+                            size_hint: (0.1, 0.3)
+                            on_press: 
+                                root.pressed_button_SignUp("Sign_up")
+                    #--------------------------------------------#
+                        LoginButton:
+                            id: ButtonLogin
+                            text: "Login"
+                            size_hint: (0.1, 0.3)
+                            on_press: 
+                                root.pressed_button_login("Login")
+                                                
+#----------------------------------------------------------------------------#
+                
+            MDBottomNavigationItem:
+                name:'signup'
+                text: 'signup'
+                icon: 'receipt'
+                on_tab_press: root.pressed_button_SignUp("Sign_up")
+
+            MDBottomNavigationItem:
+                name:'signup2'
+                text: 'Verification'
+                icon: 'receipt'
+                # i use signup page to restrict users from accessing verification page directly
+                on_tab_press: root.pressed_button_SignUp("Sign_up")
+
+            MDBottomNavigationItem:
+                name:'Login'
+                text: 'Login'
+                icon: 'account-circle'
+                on_tab_press: root.pressed_button_login("Login")
+
+            MDBottomNavigationItem:
+                name:'user_menu'
+                text: 'user menu'
+                icon: 'library'
+                on_tab_press: root.pressed_button_UMenu("UserMenu")
+#----------------------------------------------------------------------------#
+
+<LoginButton@Button>
+    background_color: (1, 0, 0, 1)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (0, 0, 255, 0.3)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(40,40), (40, 40), (40, 40), (40, 40)]
+
+<SignUpButton@Button>
+    background_color: (0, 1, 0, 1)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (0, 0, 255, 0.3)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [(40,40), (40, 40), (40, 40), (40, 40)]
+                                        

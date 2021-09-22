@@ -1,0 +1,95 @@
+
+<Calendar_page>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        MDToolbar:
+            title: 'Calendar'
+            md_bg_color: .2,.2,.2,1
+            specific_text_color: 1,1,1,1
+            icon: 'calendar'
+
+        MDBottomNavigation:
+            #color stuff
+            panel_color:.2,.2,.2,1
+
+            MDBottomNavigationItem:
+                name:'Calendar'
+                text: 'Calendar'
+                icon: 'calendar'
+                on_tab_press: root.pressed_button_const("calendar")
+#----------------------------------------------------------------------------#
+                BoxLayout:
+                    orientation: 'horizontal'
+                    padding:  [10, 10, 10, 10]
+                    spacing:10
+
+                    RoundedButton:
+                        size_hint: (0.3, 0.3)
+                        text: "Open Date Picker"
+                        pos_hint: {'center_x': .5, 'center_y': .5}
+                        on_release: root.show_date_picker()
+                    
+                    RoundedButton:
+                        id: exam_widget
+                        text: "Click to Schedule exam Start Date"
+                        size_hint: (0.3, 0.3)
+                        pos_hint: {'center_x': .5, 'center_y': .5}
+                        on_press:
+                            root.show_date_picker()
+                
+                
+
+
+            
+#----------------------------------------------------------------------------#
+
+            MDBottomNavigationItem:
+                name:'Home'
+                text: 'Home'
+                icon: 'home'
+                on_tab_press: root.pressed_button_home("Home")
+
+            MDBottomNavigationItem:
+                name:'UserMenu'
+                text: 'UserMenu'
+                icon: 'account-box'
+                on_tab_press: root.pressed_button_usermenu("UserMenu")
+
+            MDBottomNavigationItem:
+                name:'Records'
+                text: 'Records'
+                icon: 'folder'
+                on_tab_press: root.pressed_button_record("TimeTable")
+
+            MDBottomNavigationItem:
+                name:'Assignments'
+                text: 'Assignments'
+                icon: 'file'
+                on_tab_press: root.pressed_button_assignments("Assignment")
+#----------------------------------------------------------------------------#
+
+<RoundedButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (48/255, 84/255, 150/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(40,40), (40, 40), (40, 40), (40, 40)]
+            
+<RoundedLabel@Label>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (48/255, 84/255, 150/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(0,0), (40, 40), (40, 40), (0, 0)]
+            

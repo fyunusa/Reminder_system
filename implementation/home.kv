@@ -1,0 +1,174 @@
+#: import utils kivy.utils
+#: import ScreenManager kivy.uix.screenmanager 
+#: import Screen kivy.uix.screenmanager 
+
+
+<MyTile@SmartTileWithLabel>
+    size_hint_y: None
+    height: "240dp"
+
+<Home_page>:
+    id: my_widget
+    
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        MDToolbar:
+            title: 'Home'
+            md_bg_color: .2,.2,.2,1
+            specific_text_color: 1,1,1,1
+            icon: 'home'
+
+            RoundedButtonTtable:
+                id: configure
+                text: "configure"
+                size_hint: (0.2, 0.5)
+                pos_hint: {"center_x" : 0, "center_y": 0.5}
+                on_press: 
+                    root.pressed_button_SignUp("Sign_up")
+
+
+        MDBottomNavigation:
+            #color stuff
+            panel_color:.2,.2,.2,1
+
+            MDBottomNavigationItem:
+                name:'Home'
+                text: 'Home'
+                icon: 'home'
+#----------------------------------------------------------------------------#
+                BoxLayout:
+                    orientation: 'vertical'
+                    size: root.width, root.height
+                    spacing:10
+                    padding: 10
+                    size_hint: (1.6, 1.3)
+                    pos_hint: {"center_x" : 0.4, "center_y": 0.735}
+                    
+                    #--------------------------------------------#
+                    Carousel:
+                        scroll_y: True
+                        do_scroll: True
+                        scroll_type:  ['bars', 'content']
+                        adaptive_height: True            
+
+                    #--------------------------------------------#
+                        Image:
+                            size_hint: (1, 1)
+                            id: image_tite
+                            source: './images/convert1.jpg'     
+
+                    #--------------------------------------------#
+                    
+
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size: root.width, root.height
+                    spacing:10
+                    padding: 10
+
+                    GridLayout:
+                        rows: 3
+                        size_hint: (0.5, 0.5)
+                        spacing:5
+
+                        Slider:
+                            size_hint: (1, 0.05)
+                            #pos_hint: {"center_x" : 1, "center_y": 1}
+                            id: slide_img
+                            min:
+                            max: 
+                            step: 
+                            orientation: "horizontal"
+                            on_value: root.slide_images(*args)
+                    #--------------------------------------------#
+                        Label:
+                            id: quote_widget
+                            #padding_y: 100
+                            text: "Any fool can know. The point is to understand.\nAlbert Einstein"
+                            background_color: (0,0,1,1)
+                            size_hint: (1, 0.25)
+                            #background_color: utils.get_color_from_hex('#003366')
+                            canvas.before:
+                                Color:
+                                    rgba: self.background_color
+                                RoundedRectangle:
+                                    size: self.size
+                                    pos: self.pos
+                                    radius: [10]
+                        #--------------------------------------------#
+                        Label:
+                            id: advantage_widget
+                            text: "Seek and ye Shall find"
+                            size_hint: (1, 0.25)
+                            background_color: utils.get_color_from_hex('#000066')
+                            #size_hint: (1, 1)
+                            canvas.before:
+                                Color:
+                                    rgba: self.background_color
+                                RoundedRectangle:
+                                    size: self.size
+                                    pos: self.pos
+                                    radius: [10]
+               
+                    #--------------------------------------------#
+                    GridLayout:
+                        rows: 4
+                        spacing:10
+                        size_hint: (0.1, 0.5)
+                    #--------------------------------------------#
+                        MDTextField:
+                            size_hint: (0.1, 0.3)
+                            id: menu_username
+                            hint_text: 'username'
+                            #on_text: root.set_list_md_icons(self.text, True)
+                    #--------------------------------------------#
+                        MDTextField:
+                            size_hint: (0.1, 0.3)
+                            id: menu_password
+                            hint_text: 'password'
+                            #on_text: root.set_list_md_icons(self.text, True)
+                    #--------------------------------------------#
+                        RoundedButtonTtable:
+                            id: ButtonSignUp
+                            text: "Sign Up"
+                            size_hint: (0.1, 0.2)
+                            on_press: 
+                                root.pressed_button_SignUp("Sign_up")
+                    #--------------------------------------------#
+                        RoundedButtonTtable:
+                            id: ButtonLogin
+                            text: "Login"
+                            size_hint: (0.1, 0.2)
+                            on_press: 
+                                root.pressed_button_login("Login")
+                                                
+#----------------------------------------------------------------------------#
+                
+            MDBottomNavigationItem:
+                name:'signup'
+                text: 'signup'
+                icon: 'receipt'
+                on_tab_press: root.pressed_button_SignUp("Sign_up")
+
+            MDBottomNavigationItem:
+                name:'signup2'
+                text: 'Verification'
+                icon: 'receipt'
+                # i use signup page to restrict users from accessing verification page directly
+                on_tab_press: root.pressed_button_SignUp("Sign_up")
+
+            MDBottomNavigationItem:
+                id: Voice
+                name:'Kira'
+                text: "Talk to Kira"
+                icon: 'face'
+                on_tab_press: root.talk_kira()
+
+            MDBottomNavigationItem:
+                name:'user_menu'
+                text: 'user menu'
+                icon: 'library'
+                on_tab_press: root.pressed_button_UMenu("UserMenu")
+#----------------------------------------------------------------------------#
+                                        

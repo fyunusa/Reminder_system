@@ -1,0 +1,11 @@
+﻿Reminder software is a simple event management program that can schedule our daily plans, 
+reminder with pop-up window and sound to ensure that you don't miss an important appointment or deadline.
+If you spend a lot of time on your mobile, it makes sense to keep your schedule or calendar there too.
+No matter how well you set up your todo list and calendar, you aren't going to get things done unless you have a reliable way of reminding yourself to actually do them
+A trigger is anything that you put “in your way” to remind you to do something,
+The best triggers are related in some way to the behavior you want to produce
+Anything that catches your attention and reminds you to do something can be a trigger. An alarm clock or kitchen timer is a perfect example — when the bell rings, you know to wake up or take the quiche out of the oven. (Hopefully you remember which trigger goes with which behavior!)
+Automated reminders can help you build habits but it can also help you remember things that are too important to be trusted even to habit.
+My advice is to set reminders for just about everything so you never have to think about it — and never have to worry about forgetting.
+Your weekly review is a good time to enter new reminders for the coming weeks or months. I simply don't want to think about what I'm supposed to be doing; I want to be reminded so I can think just about actually doing it.
+

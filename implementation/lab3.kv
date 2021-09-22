@@ -1,0 +1,209 @@
+#:import Factory kivy.factory.Factory
+
+<pop@Popup>
+
+    auto_dismiss: True
+    id: popup_header
+    title: ""
+    size_hint: 0.6, 0.6
+    pos_hint: {"x": 0.2, "top": 0.9}
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        MDTextField:
+            id: popuptext
+            hint_text: ""
+            #text: "Something inside of my popup box"
+            text: ""
+            multiline: True
+            font_size: 16
+            size_hint: 1, 0.9
+            color: (0,1,0,1)
+
+        Button:
+            text: "Close me"
+            font_size: 20
+            size_hint: 1, 0.1
+            on_release: root.dismiss()
+#-----------------------------------------------------------#
+
+<UserMenu_page>:
+    BoxLayout:
+        orientation: 'vertical'
+        #AsyncImage:
+           # source:  'sample1.jpg'
+
+        MDToolbar:
+            title: 'UserMenu'
+            md_bg_color: .2,.2,.2,1
+            specific_text_color: 1,1,1,1
+            icon: 'accounts-list'
+
+        MDBottomNavigation:
+            #color stuff
+            panel_color:.2,.2,.2,1
+
+            MDBottomNavigationItem:
+                name:'UserMenu'
+                text: 'UserMenu'
+                icon: 'account-box'
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    
+                    GridLayout:
+                        cols: 2
+                        size: root.width, root.height
+                        spacing:10
+                        padding: 30
+
+                        RoundedLabel1:
+                            id: user_menu_widget1
+                            text: "i am label 1 widget"
+                            #background_color: (0, 0, 255, 0.3)
+                            spacing:[10, 0]
+
+                        RoundedLabel2:
+                            id: user_menu_widget2
+                            text: "25"
+                            size_hint: (0.3, 1.0)
+                            font_size: 40
+                    
+                    BoxLayout:
+                        text: "i  am the Inner BoxLayout" 
+                        spacing:10
+                        padding: 30
+                        orientation: 'vertical'
+
+                        Label:
+                            id: user_menu_widget3
+                            text: "Upcoming Classes"
+                            size_hint: (1.0, 3.0)
+                            background_color: (0, 0, 255, 0.3)
+                            #border: 10, 10, 10, 10
+                            canvas.before:
+                                Color:
+                                    rgba: self.background_color
+                                Rectangle:
+                                    size: self.size
+                                    pos: self.pos
+                                #border: 10, 10, 10, 10
+                        
+                        Label:
+                            id: user_menu_widget4
+                            text: "Upcoming Assignments"
+                            size_hint: (1.0, 3.0)
+                            background_color: (0, 0, 255, 0.3)
+                            #border: 10, 10, 10, 10
+                            canvas.before:
+                                Color:
+                                    rgba: self.background_color
+                                Rectangle:
+                                    size: self.size
+                                    pos: self.pos
+                                #border: 10, 10, 10, 10
+                        
+                        Button:
+                            text: "popup the box"
+                            on_press: root.schedule_pop()
+                      
+
+                    GridLayout:
+                        cols: 2
+                        spacing:10
+                        padding: 30
+                        
+                        RoundedButton1:
+                            text: "Records"
+                            size_hint: (0.1, 0.1)
+                            on_press:
+                                root.pressed_button_timetable("TimeTable") 
+                            
+                        RoundedButton4:
+                            text: "Assignments"
+                            size_hint: (0.1, 0.1)
+                            on_press:
+                                root.pressed_button_assignment("assignments") 
+                            
+
+
+                    
+#----------------------------------------------------------------------------#
+
+            MDBottomNavigationItem:
+                name:'Home'
+                text: 'Home'
+                icon: 'home'
+                on_tab_press: root.pressed_button_home("Home")
+
+            MDBottomNavigationItem:
+                name:'Calendar'
+                text: 'Calendar'
+                icon: 'calendar'
+                on_tab_press: root.pressed_button_calender("Calendar")
+
+            MDBottomNavigationItem:
+                name:'TimeTable'
+                text: 'TimeTable'
+                icon: 'folder'
+                on_tab_press: root.pressed_button_timetable("TimeTable")
+
+            MDBottomNavigationItem:
+                name:'Scheduler'
+                text: 'Scheduler'
+                icon: 'file'
+                on_tab_press: root.pressed_button_scheduler("Scheduler")
+#----------------------------------------------------------------------------#
+
+<RoundedLabel2@Label>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (48/255, 84/255, 150/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(0,0), (40, 40), (40, 40), (0, 0)]
+            
+
+<RoundedLabel1@Label>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (0, 0, 255, 0.3)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(40,40), (0, 0), (0, 0), (40, 40)]
+            
+<RoundedButton1@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (0, 0, 255, 0.3)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(40,40), (0, 0), (0, 0), (40, 40)]
+
+<RoundedButton4@Button>
+    background_color: (0, 0, 255, 0.3)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (0, 0, 255, 0.3)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(0, 0), (40, 40), (40, 40), (0, 0)]
+#----------------------------------------------------------------------------#
+
