@@ -8,7 +8,7 @@
             title: 'Scheduler'
             md_bg_color: .2,.2,.2,1
             specific_text_color: 1,1,1,1
-            icon: 'accounts-list'
+            icon: 'file'
 
         MDBottomNavigation:
             #color stuff
@@ -19,93 +19,173 @@
                 text: 'Scheduler'
                 icon: 'account-box'
                 on_tab_press: root.pressed_button_const("Scheduler")
+#----------------------------------------------------------------------------#
+
+                #--------------------------------------------#
+                Carousel:
+                    pos_hint: {"center_x" : 0.5, "center_y": 0.85}
+                    do_scroll: True
+                    scroll_type:  ['bars', 'content']
+                    adaptive_height: True            
+
+                #--------------------------------------------#
+                    Image:
+                        size_hint: (1, 1)
+                        id: image_tite
+                        source: './images/convert1.jpg'     
+
+                    #--------------------------------------------#
+                Slider:
+                    size_hint: (0.8, 0.05)
+                    pos_hint: {"center_x" : 0.45, "center_y": 0.7}
+                    id: slide_img
+                    min:
+                    max: 
+                    step: 
+                    orientation: "horizontal"
+                    on_value: root.slide_images(*args)
+
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    #size: root.width, root.height
+                    spacing: 5
+                    padding: 10
+                    pos_hint: {"center_x" : 0.51, "center_y": 0.3}
+                    size_hint: (1, 0.75)
 
 #----------------------------------------------------------------------------#
-                MDBoxLayout:
-                    size_hint: None, None
-                    size: 700, 700
-                    pos_hint: {"center_x" : 0.5, "center_y": 0.29}
-                    #elevation: 10
-                    padding: 25
-                    spacing: 25
-                    orientation: 'vertical'
 
-                    MDTextFieldRound:
-                        id: Day
-                        hint_text: "Day e.g monday"
-                        icon_left: "account"
-                        size_hint_x: None
-                        width: 500
-                        font_size: 18
-                        pos_hint: {"center_x": 0.5}
+                    MDBoxLayout:
+                        id: schedule_something
+                        size_hint: (0.7, 0.7)
+                        #size: 500, 700
+                        pos_hint: {"center_x" : 0.5, "center_y": 0.5}
+                        padding: 11
+                        spacing: 15
+                        orientation: 'vertical'
 
-                    MDTextFieldRound:
-                        id: Start_time
-                        hint_text: "Start Time e.g 07:00"
-                        icon_left: "account"
-                        size_hint_x: None
-                        width: 500
-                        font_size: 18
-                        pos_hint: {"center_x": 0.5}
+                        MDTextFieldRound:
+                            id: Day
+                            hint_text: "Day e.g monday"
+                            icon_left: "account"
+                            size_hint_x: None
+                            width: 500
+                            font_size: 18
+                            #pos_hint: {"center_x": 0.5}
 
-                    MDTextFieldRound:
-                        id: End_time
-                        hint_text: "End Time e.g 04:00"
-                        icon_left: "account"
-                        size_hint_x: None
-                        width: 500
-                        font_size: 18
-                        pos_hint: {"center_x": 0.5}
+                        MDTextFieldRound:
+                            id: Start_time
+                            hint_text: "Start Time e.g 07:00"
+                            icon_left: "account"
+                            size_hint_x: None
+                            width: 500
+                            font_size: 18
+                            #pos_hint: {"center_x": 0.5}
+                        
+                        MDTextFieldRound:
+                            id: Day
+                            hint_text: "Day e.g monday"
+                            icon_left: "account"
+                            size_hint_x: None
+                            width: 500
+                            font_size: 18
+                            #pos_hint: {"center_x": 0.5}
 
-                    MDTextFieldRound:
-                        id: course_code
-                        hint_text: "course_code e.g TME411"
-                        icon_left: "account"
-                        size_hint_x: None
-                        width: 500
-                        font_size: 18
-                        pos_hint: {"center_x": 0.5}
-                    
-                    MDTextFieldRound:
-                        id: course_title
-                        hint_text: "Course Title e.g operation research"
-                        helper_text_mode: "on_error"
-                        icon_left: "account"
-                        size_hint_x: None
-                        width: 500
-                        font_size: 18
-                        pos_hint: {"center_x": 0.5}
-                    
-                    MDTextFieldRound:
-                        id: credit_unit
-                        hint_text: "credit_unit"
-                        icon_left: "account"
-                        size_hint_x: None
-                        width: 500
-                        font_size: 18
-                        pos_hint: {"center_x": 0.5}
-                    
-                    MDGridLayout:
-                        cols: 2
-                        spacing: 30
-                        padding: 20
-                        pos_hint: {"center_x" : 0.8, "center_y": 0}
+                        MDTextFieldRound:
+                            id: Start_time
+                            hint_text: "Start Time e.g 07:00"
+                            icon_left: "account"
+                            size_hint_x: None
+                            width: 500
+                            font_size: 18
+                            #pos_hint: {"center_x": 0.5}
+                        
+                        MDTextFieldRound:
+                            id: Day
+                            hint_text: "Day e.g monday"
+                            icon_left: "account"
+                            size_hint_x: None
+                            width: 500
+                            font_size: 18
+                            #pos_hint: {"center_x": 0.5}
+
+                        MDTextFieldRound:
+                            id: Start_time
+                            hint_text: "Start Time e.g 07:00"
+                            icon_left: "account"
+                            size_hint_x: None
+                            width: 500
+                            font_size: 18
+                            #pos_hint: {"center_x": 0.5}
+
+                        
+                        
+                        
+                        MDGridLayout:
+                            #orientation: 'horizontal'
+                            cols: 2
+                            spacing: 30
+                            #padding: 0
+                            pos_hint: {"center_x" : 0.7, "center_y": 0}
+
+                            MDRoundFlatButton:
+                                text: "SUBMIT"
+                                font_size: 12
+                                #pos_hint: {"center_x": 0.5}
+                                on_press: root.pressed_button_submit()
+                                background_normal: ''
+                                background_color: utils.get_color_from_hex('#eefa00')
+
+                            MDRoundFlatButton:
+                                text: "CLEAR"
+                                font_size: 12
+                                #pos_hint: {"center_x": 0.5}
+                                #on_press: root.signup_clear()
+                                background_normal: ''
+                                background_color: (0,0,1,1)
+#----------------------------------------------------------------------------#
+                    MDBoxLayout:
+                        id: schedule_right
+                        padding: 10
+                        spacing: 10
+                        orientation: 'vertical'
+                        size_hint: (0.31, 0.88)
+                        pos_hint: {"center_x" : 0, "center_y": 0.6}
 
                         MDRoundFlatButton:
-                            text: "SUBMIT"
+                            text: "Like to Schedule a Class ?"
+                            size_hint: (1, 0.14)
+                            id: class_scheduler
                             font_size: 12
                             #pos_hint: {"center_x": 0.5}
-                            on_press: root.pressed_button_submit()
+                            on_press: root.class_scheduler()
                             background_normal: ''
                             background_color: utils.get_color_from_hex('#eefa00')
 
                         MDRoundFlatButton:
-                            text: "CLEAR"
+                            text: "Like to Schedule an  Assignment ?"
+                            size_hint: (1, 0.15)
+                            id: assignment_scheduler
                             font_size: 12
                             #pos_hint: {"center_x": 0.5}
-                            #on_press: root.signup_clear()
+                            on_press: root.schedule_something()
                             background_normal: ''
                             background_color: (0,0,1,1)
+                        
+                        Label:
+                            id: quote_widget
+                            #padding_y: 100
+                            text: "Any fool can know \nAlbert Einstein"
+                            background_color: (0,0,1,1)
+                            size_hint: (1, 0.8)
+                            #background_color: utils.get_color_from_hex('#003366')
+                            canvas.before:
+                                Color:
+                                    rgba: self.background_color
+                                RoundedRectangle:
+                                    size: self.size
+                                    pos: self.pos
+                                    radius: [10]
 
 #----------------------------------------------------------------------------#
             MDBottomNavigationItem:

@@ -1,18 +1,150 @@
-ScrollView:
-    MDGridLayout:
-        cols: 3
-        adaptive_height: True
-        padding: dp(4), dp(4)
-        spacing: dp(4)
+#: import utils kivy.utils
 
-        MyTile:
-            source: "./images/1.jpg"
-            text: "[size=26]Anon1[/size]\n[size=14]1.jpg[/size]"
-        
-        MyTile:
-            source: "./images/2.jpg"
-            text: "[size=26]Anon2[/size]\n[size=14]2.jpg[/size]"
-        
-        MyTile:
-            source: "./images/3.jpg"
-            text: "[size=26]Anon3[/size]\n[size=14]3.jpg[/size]"
+<scheduler_page>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        MDToolbar:
+            title: 'Scheduler'
+            md_bg_color: .2,.2,.2,1
+            specific_text_color: 1,1,1,1
+            icon: 'file'
+
+        MDBottomNavigation:
+            #color stuff
+            panel_color:.2,.2,.2,1
+
+            MDBottomNavigationItem:
+                name:'Scheduler'
+                text: 'Scheduler'
+                icon: 'account-box'
+                on_tab_press: root.pressed_button_const("Scheduler")
+#----------------------------------------------------------------------------#
+#--------------------------------------------#
+                Carousel:
+                    pos_hint: {"center_x" : 0.5, "center_y": 0.85}
+                    do_scroll: True
+                    scroll_type:  ['bars', 'content']
+                    adaptive_height: True            
+
+                #--------------------------------------------#
+                    Image:
+                        size_hint: (1, 1)
+                        id: image_tite
+                        source: './images/convert1.jpg'     
+
+                    #--------------------------------------------#
+                Slider:
+                    size_hint: (0.8, 0.05)
+                    pos_hint: {"center_x" : 0.45, "center_y": 0.7}
+                    id: slide_img
+                    min:
+                    max: 
+                    step: 
+                    orientation: "horizontal"
+                    on_value: root.slide_images(*args)
+
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    #size: root.width, root.height
+                    spacing: 5
+                    padding: 10
+                    pos_hint: {"center_x" : 0.51, "center_y": 0.3}
+                    size_hint: (1, 0.75)
+#----------------------------------------------------------------------------#
+                    
+                    MDBoxLayout:
+                        id: schedule_something
+                        size_hint: (0.7, 0.7)
+                        #size: 500, 700
+                        pos_hint: {"center_x" : 0.5, "center_y": 0.5}
+                        padding: 15
+                        spacing: 15
+                        orientation: 'vertical'
+
+                        MDTextFieldRound:
+                            id: Day
+                            hint_text: "Day e.g monday"
+                            icon_left: "account"
+                            size_hint_x: None
+                            width: 500
+                            font_size: 18
+                            #pos_hint: {"center_x": 0.5}
+
+                        MDTextFieldRound:
+                            id: Start_time
+                            hint_text: "Start Time e.g 07:00"
+                            icon_left: "account"
+                            size_hint_x: None
+                            width: 500
+                            font_size: 18
+                            #pos_hint: {"center_x": 0.5}
+
+                        MDGridLayout:
+                            #orientation: 'horizontal'
+                            cols: 2
+                            spacing: 30
+                            #padding: 0
+                            pos_hint: {"center_x" : 0.7, "center_y": 0}
+
+                            MDRoundFlatButton:
+                                text: "SUBMIT"
+                                font_size: 12
+                                #pos_hint: {"center_x": 0.5}
+                                on_press: root.pressed_button_submit()
+                                background_normal: ''
+                                background_color: utils.get_color_from_hex('#eefa00')
+
+                            MDRoundFlatButton:
+                                text: "CLEAR"
+                                font_size: 12
+                                #pos_hint: {"center_x": 0.5}
+                                #on_press: root.signup_clear()
+                                background_normal: ''
+                                background_color: (0,0,1,1)
+#----------------------------------------------------------------------------#
+                    MDBoxLayout:
+                        id: schedule_right
+                        padding: 10
+                        spacing: 10
+                        orientation: 'vertical'
+                        size_hint: (0.31, 0.88)
+                        pos_hint: {"center_x" : 0, "center_y": 0.6}
+
+                        MDRoundFlatButton:
+                            text: "Like to Schedule a Class ?"
+                            size_hint: (1, 0.14)
+                            id: class_scheduler
+                            font_size: 12
+                            #pos_hint: {"center_x": 0.5}
+                            on_press: root.class_scheduler()
+                            background_normal: ''
+                            background_color: utils.get_color_from_hex('#eefa00')
+
+                        
+#----------------------------------------------------------------------------#
+                    
+#----------------------------------------------------------------------------#
+            MDBottomNavigationItem:
+                name:'UserMenu'
+                text: 'UserMenu'
+                icon: 'account-box'
+                on_tab_press: root.pressed_button_usermenu("UserMenu")
+
+            MDBottomNavigationItem:
+                name:'Calendar'
+                text: 'Calendar'
+                icon: 'calendar'
+                on_tab_press: root.pressed_button_calendar("Calendar")
+
+            MDBottomNavigationItem:
+                name:'TimeTable'
+                text: 'TimeTable'
+                icon: 'folder'
+                on_tab_press: root.pressed_button_timetable("TimeTable")
+
+            MDBottomNavigationItem:
+                name:'Assignments'
+                text: 'Assignments'
+                icon: 'file'
+                on_tab_press: root.pressed_button_assignment("Assignment")

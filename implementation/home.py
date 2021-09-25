@@ -1,5 +1,7 @@
 from kivy.app import App
 from kivymd.app import MDApp
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.textfield import MDTextFieldRound
 #----------------#----------------#-------------#------------#
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
@@ -17,7 +19,6 @@ from kivymd.uix.picker import MDDatePicker, MDTimePicker
 import os
 import datetime
 import time
-import pymysql
 import re
 #----------------#----------------#-------------#------------#
 from kivy.metrics import dp
@@ -27,8 +28,11 @@ from kivy.storage.jsonstore import JsonStore
 from kivy.clock import Clock
 from kivy.factory import Factory
 
+
 #----------------#---------Voice-------#-------------#------------#
-import speech_recognition as sr  
+# import speech_recognition as sr  
+import speech_recognition as s_r
+
 
 #----------------#------------json's----#-------------#------------#
 store = JsonStore('user_data.json')
@@ -73,28 +77,13 @@ class Home_page(Screen):
         reminder_app.screen_manager.current = "UserMenu"
     
     def talk_kira(self):
-        # get audio from the microphone                                                                       
-        r = sr.Recognizer()      
-
-        with sr.Microphone() as source:                                                                       
-            print("Speak i can hear you:")                                                                                   
-            audio = r.listen(source)   
-
-        try:
-            
-            user_statement =  r.recognize_google(audio)
-            print("You said " + user_statement)
-
-            searched_string = "upcoming classes"
-
-            if searched_string in user_statement:
-                print("the string you searched for is in the statement that's just being made......" + searched_string) 
-
-        except sr.UnknownValueError:
-            print("Could not understand audio")
-
-        except sr.RequestError as e:
-            print("Could not request results; {0}".format(e))
+        r = s_r.Recognizer()
+        my_mic = s_r.Microphone(device_index=1) #my device index is 1, you have to put your device index
+        with my_mic as source:
+            print("Say now!!!!")
+            r.adjust_for_ambient_noise(source) #reduce noise
+            audio = r.listen(source) #take voice input from the microphone
+        print(r.recognize_google(audio)) #to print voice into text
 
     
     def slide_images(self, *args):
@@ -295,14 +284,6 @@ class UserMenu_page(Screen):
             headText = "{0} Upcoming Scheduled Classes".format(current_day)
             summon_popup.title = headText
 
-            # #----------------#------slider parameters------------#------------#
-            # self.ids.slide_class1.min = 1
-            # self.ids.slide_class1.max = 10
-            # self.ids.slide_class1.step = 2
-            # self.ids.slide_class1.on_value = headText
-            # self.slide_text.text = "boys"
-
-        # print(containertime)
         # return containertime
 
 #-----------------------------------------------------------#
@@ -517,6 +498,9 @@ class TimeTable_page(Screen):
 #-----------------------------------------------------------#
     def pressed_button_calendar(self, instance):
         reminder_app.screen_manager.current = "Calendar"
+    #-----------------------------------------------------------#
+    def pressed_button_scheduler(self, instance):
+        reminder_app.screen_manager.current = "Scheduler"
 #-----------------------------------------------------------#
     def pressed_button_usermenu(self, instance):
         reminder_app.screen_manager.current = "UserMenu"
@@ -629,6 +613,27 @@ class Assignment_page(Screen):
     def pressed_button_assignment(self, *args):
         self.ATable_layout = AnchorLayout()
 
+        user_row_data=[]
+        row_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+        count = 1
+
+        for days in row_days:
+            if store.exists('Assignments'):
+                json_data_collector = (
+                    # The number of elements must match the length
+                    # of the `column_data` list.
+                    
+                        count,
+                    ( 
+                        store.get('Assignments')['Course_Title'],
+                        store.get('Assignments')['Question'],
+                        store.get('Assignments')['Due_date'],
+                    )
+                )
+                
+                user_row_data.append(json_data_collector)
+                count += 1
+
         self.data_tables = MDDataTable(
             size_hint=(0.9, 0.6),
             pos_hint = {'center_y': 0.5, 'center_x': 0.5},
@@ -637,36 +642,13 @@ class Assignment_page(Screen):
             column_data=[
                 ("No.", dp(10)),
                 ("[color=#52251B] Course Title [/color]", dp(45)),
-                (" [size=15] Question [/size]", dp(60)),
+                ("[size=15] Question [/size]", dp(60)),
                 ("Due Date", dp(15),),
             ],
 
-            row_data=[
-                # The number of elements must match the length
-                # of the `column_data` list.
-                (
-                    "1",
-                    ( "alert-circle", [255 / 256, 165 / 256, 0, 1], "Software Engineering I"),# for a row with icon
-                    "Modeling software for clients",
-                   "Date",
-                ),
-                (
-                    "2",
-                    ( "alert-circle", [255 / 256, 165 / 256, 0, 1], "Software Engineering II"),# for a row with icon
-                    "Modeling AI systems",
-                   "Date",
-                   
-                ),
-                (
-                    "3",
-                    ( "checkbox-marked-circle", [255 / 256, 165 / 256, 0, 1], "Software Engineering III"),# for a row with icon
-                    "Principles Of Softwares",
-                   "Date",
-                   
-                ),
-            ],
+            row_data = user_row_data,
             elevation = 20,
-            rows_num = 2,
+
         )
         self.add_widget(self.data_tables)
         return self.ATable_layout
@@ -690,8 +672,64 @@ class scheduler_page(Screen):
     def pressed_button_calendar(self, instance):
         reminder_app.screen_manager.current = "Calendar"
 #-----------------------------------------------------------#
+    def slide_images(self, *args):
+
+        #----------------#------slider parameters------------#------------#
+        
+        images_list = ['./images/convert1.jpg','./images/convert2.jpg','./images/convert3.jpg','./images/convert4.jpg','./images/convert5.jpg','./images/convert6.jpg']
+        images_text_list = ['we do not forgive', 'we do not forget', 'we are unstoppable']
+        
+        read_quote_file = open('./inspirational_quotes.txt', 'r')
+        # read_advantage_file = open('./advan.txt', 'r')
+        quotes = read_quote_file.readlines()
+        # advantages = read_advantage_file.readlines()
+
+        self.ids.slide_img.min = 0
+        self.ids.slide_img.max = len(images_list)
+        self.ids.slide_img.step = 1
+
+        
+        for i in range(len(images_list)):
+            if self.ids.slide_img.value  == i:
+                self.ids.image_tite.source = images_list[i]
+        
+        for i in range(len(quotes)):
+            if i%2 == 1:
+                i = i + 1
+            elif i%2 != 1: 
+                i = i
+            if self.ids.slide_img.value  == i:
+                if i < len(quotes):
+                    quote_length = len(quotes[i])
+                    if quote_length <= 20:
+                        self.ids.quote_widget.text = quotes[i]+quotes[i+1]
+                    else:
+                        self.ids.quote_widget.text = quotes[i][0:20]+'\n'+quotes[i][20:40]+'\n'+quotes[i][40:60]+'\n'+quotes[i+1]
+        
+#-----------------------------------------------------------#
+
     def pressed_button_usermenu(self, instance):
         reminder_app.screen_manager.current = "UserMenu"
+#-----------------------------------------------------------#
+    def class_scheduler(self):
+        ids = ['Day','Start_time', 'End_time','course_code','course_title','credit_unit']
+        hint_texts = ['Day e.g monday','Start Time e.g 07:00','End Time e.g 04:00','course_code','Course Title ','credit_unit']
+
+        try:
+            for i in range(len(ids)):
+                inputs = MDTextFieldRound(
+                    id = ids[i],
+                    icon_left = "account",
+                    hint_text = hint_texts[i],
+                    width = 500,
+                    font_size = 18,
+                    )
+                
+                self.ids.schedule_something.add_widget(inputs)
+        except Exception as e:
+            print(e)
+            
+         
 #-----------------------------------------------------------#
     def pressed_button_submit(self):
         #-----------------------------------------------------------#
@@ -741,56 +779,56 @@ class MainApp(MDApp):
         self.screen_manager = ScreenManager()
         # Clock.schedule_interval(slide_it(), 0.5)
 
-        #-----------using the screen manager to refernce our Home page-------------#
+     #-----------using the screen manager to refernce our Home page-------------#
         self.My_Home_page = Home_page()
         screen = Screen(name="Home")
         screen.add_widget(self.My_Home_page)
         self.screen_manager.add_widget(screen)
 
-    #-----------using the screen manager to refernce our Sign_up page-------------#
-        self.My_Sign_up_page = Sign_up_page()
-        screen = Screen(name="Sign_up")
-        screen.add_widget(self.My_Sign_up_page)
-        self.screen_manager.add_widget(screen)
+    # #-----------using the screen manager to refernce our Sign_up page-------------#
+    #     self.My_Sign_up_page = Sign_up_page()
+    #     screen = Screen(name="Sign_up")
+    #     screen.add_widget(self.My_Sign_up_page)
+    #     self.screen_manager.add_widget(screen)
 
-    #-----------using the screen manager to refernce our Sign_up page-------------#
-        self.My_Sign_up_page2 = Sign_up_page2()
-        screen = Screen(name="Sign_up2")
-        screen.add_widget(self.My_Sign_up_page2)
-        self.screen_manager.add_widget(screen)
+    # #-----------using the screen manager to refernce our Sign_up page-------------#
+    #     self.My_Sign_up_page2 = Sign_up_page2()
+    #     screen = Screen(name="Sign_up2")
+    #     screen.add_widget(self.My_Sign_up_page2)
+    #     self.screen_manager.add_widget(screen)
 
-#     #-----------using the screen manager to refernce our Login page-------------#
-        self.My_Login_page = Login_page()
-        screen = Screen(name="Login")
-        screen.add_widget(self.My_Login_page)
-        self.screen_manager.add_widget(screen)
+    # #-----------using the screen manager to refernce our Login page-------------#
+    #     self.My_Login_page = Login_page()
+    #     screen = Screen(name="Login")
+    #     screen.add_widget(self.My_Login_page)
+    #     self.screen_manager.add_widget(screen)
 
-#     #-----------using the screen manager to refernce our Sign_up page-------------#
-        self.My_UserMenu_page = UserMenu_page()
-        screen = Screen(name="UserMenu")
-        screen.add_widget(self.My_UserMenu_page)
-        self.screen_manager.add_widget(screen)
+    # #-----------using the screen manager to refernce our Sign_up page-------------#
+#         self.My_UserMenu_page = UserMenu_page()
+#         screen = Screen(name="UserMenu")
+#         screen.add_widget(self.My_UserMenu_page)
+#         self.screen_manager.add_widget(screen)
 
-    #-----------using the screen manager to refernce our Sign_up page-------------#
-        self.My_Calendar_page = Calendar_page()
-        screen = Screen(name="Calendar")
-        screen.add_widget(self.My_Calendar_page)
-        self.screen_manager.add_widget(screen)
+#     # #-----------using the screen manager to refernce our Sign_up page-------------#
+#         self.My_Calendar_page = Calendar_page()
+#         screen = Screen(name="Calendar")
+#         screen.add_widget(self.My_Calendar_page)
+#         self.screen_manager.add_widget(screen)
 
-    #-----------using the screen manager to refernce our Sign_up page-------------#
-        self.My_TTable_page = TimeTable_page()
-        screen = Screen(name="TimeTable")
-        screen.add_widget(self.My_TTable_page)
-        self.screen_manager.add_widget(screen)
+#     #--------------using the screen manager to refernce our Sign_up page-------------#
+#         self.My_TTable_page = TimeTable_page()
+#         screen = Screen(name="TimeTable")
+#         screen.add_widget(self.My_TTable_page)
+#         self.screen_manager.add_widget(screen)
 
-#-----------using the screen manager to refernce our Assignment_page-------------#
-        self.My_Assignment_page = Assignment_page()
-        screen = Screen(name="Assignment")
-        screen.add_widget(self.My_Assignment_page)
-        self.screen_manager.add_widget(screen)
-        scheduler_page
+# #-----------using the screen manager to refernce our Assignment_page-------------#
+#         self.My_Assignment_page = Assignment_page()
+#         screen = Screen(name="Assignment")
+#         screen.add_widget(self.My_Assignment_page)
+#         self.screen_manager.add_widget(screen)
+#         scheduler_page
     
-#-----------using the screen manager to refernce our Assignment_page-------------#
+# #-----------using the screen manager to refernce our Assignment_page-------------#
         self.My_scheduler_page = scheduler_page()
         screen = Screen(name="Scheduler")
         screen.add_widget(self.My_scheduler_page)
