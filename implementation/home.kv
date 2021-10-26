@@ -23,6 +23,8 @@
                 id: configure
                 text: "configure"
                 size_hint: (0.2, 0.5)
+                padding: 5,5
+                text_size: self.width,self.height
                 pos_hint: {"center_x" : 0, "center_y": 0.5}
                 on_press: 
                     root.pressed_button_SignUp("Sign_up")
@@ -36,112 +38,126 @@
                 name:'Home'
                 text: 'Home'
                 icon: 'home'
-#----------------------------------------------------------------------------#
+
                 BoxLayout:
                     orientation: 'vertical'
-                    size: root.width, root.height
-                    spacing:10
-                    padding: 10
-                    size_hint: (1.6, 1.3)
-                    pos_hint: {"center_x" : 0.4, "center_y": 0.735}
-                    
-                    #--------------------------------------------#
-                    Carousel:
-                        scroll_y: True
+                    padding:0
+#----------------------------------------------------------------------------#
+                #--------------------------------------------#
+                    ScrollView:
                         do_scroll: True
+                        size:self.width,self.height
                         scroll_type:  ['bars', 'content']
                         adaptive_height: True            
 
                     #--------------------------------------------#
                         Image:
                             size_hint: (1, 1)
+                            size: self.texture_size
+                            allow_stretch: True
                             id: image_tite
-                            source: './images/convert1.jpg'     
+                            source: './images/s4.jpg'     
 
-                    #--------------------------------------------#
-                    
-
-                BoxLayout:
-                    orientation: 'horizontal'
-                    size: root.width, root.height
-                    spacing:10
-                    padding: 10
-
-                    GridLayout:
-                        rows: 3
-                        size_hint: (0.5, 0.5)
-                        spacing:5
-
-                        Slider:
-                            size_hint: (1, 0.05)
-                            #pos_hint: {"center_x" : 1, "center_y": 1}
-                            id: slide_img
-                            min:
-                            max: 
-                            step: 
-                            orientation: "horizontal"
-                            on_value: root.slide_images(*args)
-                    #--------------------------------------------#
-                        Label:
-                            id: quote_widget
-                            #padding_y: 100
-                            text: "Any fool can know. The point is to understand.\nAlbert Einstein"
-                            background_color: (0,0,1,1)
-                            size_hint: (1, 0.25)
-                            #background_color: utils.get_color_from_hex('#003366')
-                            canvas.before:
-                                Color:
-                                    rgba: self.background_color
-                                RoundedRectangle:
-                                    size: self.size
-                                    pos: self.pos
-                                    radius: [10]
                         #--------------------------------------------#
-                        Label:
-                            id: advantage_widget
-                            text: "Seek and ye Shall find"
-                            size_hint: (1, 0.25)
-                            background_color: utils.get_color_from_hex('#000066')
-                            #size_hint: (1, 1)
-                            canvas.before:
-                                Color:
-                                    rgba: self.background_color
-                                RoundedRectangle:
-                                    size: self.size
-                                    pos: self.pos
-                                    radius: [10]
-               
-                    #--------------------------------------------#
-                    GridLayout:
-                        rows: 4
+                        
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint: (1, 0.5)
                         spacing:10
-                        size_hint: (0.1, 0.5)
-                    #--------------------------------------------#
-                        MDTextField:
-                            size_hint: (0.1, 0.3)
-                            id: menu_username
-                            hint_text: 'username'
-                            #on_text: root.set_list_md_icons(self.text, True)
-                    #--------------------------------------------#
-                        MDTextField:
-                            size_hint: (0.1, 0.3)
-                            id: menu_password
-                            hint_text: 'password'
-                            #on_text: root.set_list_md_icons(self.text, True)
-                    #--------------------------------------------#
-                        RoundedButtonTtable:
-                            id: ButtonSignUp
-                            text: "Sign Up"
-                            size_hint: (0.1, 0.2)
-                            on_press: 
-                                root.pressed_button_SignUp("Sign_up")
-                    #--------------------------------------------#
-                        RoundedButtonTtable:
-                            id: ButtonLogin
-                            text: "Login"
-                            size_hint: (0.1, 0.2)
-                            on_press: 
-                                root.pressed_button_login("Login")
+                        # padding: 10
+                        background_color: (255,99,71,0.8)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [10]
+
+                        GridLayout:
+                            rows: 3
+                            # size_hint: (0.5, 0.5)
+                            spacing:5
+
+                            Slider:
+                                size_hint: (1, 0.05)
+                                #pos_hint: {"center_x" : 1, "center_y": 1}
+                                id: slide_img
+                                min:
+                                max: 
+                                step: 
+                                orientation: "horizontal"
+                                on_value: root.slide_images(*args)
+                        #--------------------------------------------#
+                            Label:
+                                id: quote_widget
+                                # padding: 50, 50
+                                padding_x: 2.5,1.5
+                                padding_y: 0.5,0.5
+                                text: "Any fool can know. The point is to understand.\nAlbert Einstein"
+                                background_color: (0,0,1,1)
+                                # size_hint: (1, 0.5)
+                                text_size: self.width,self.height
+                                canvas.before:
+                                    Color:
+                                        rgba: self.background_color
+                                    RoundedRectangle:
+                                        size: self.size
+                                        pos: self.pos
+                                        radius: [10]
+                            #--------------------------------------------#
+                            Label:
+                                id: advantage_widget
+                                text: "Seek and ye Shall find"
+                                padding_x: 2.5,1.5
+                                padding_y: 0.5,0.5
+                                # size_hint: (1, 0.5)
+                                # pos_hint: {"x": 0.5 ,"y": 0.5}
+                                text_size: self.width,self.height
+                                background_color: utils.get_color_from_hex('#000066')
+                                canvas.before:
+                                    Color:
+                                        rgba: self.background_color
+                                    RoundedRectangle:
+                                        size: self.size
+                                        pos: self.pos
+                                        radius: [10]
+                
+                        #--------------------------------------------#
+                        GridLayout:
+                            rows: 4
+                            spacing:10
+                            size_hint: (0.4, 1)
+                        #--------------------------------------------#
+                            MDTextField:
+                                size_hint: (0.1, 0.3)
+                                id: menu_username
+                                text: 'username'
+                                #on_text: root.set_list_md_icons(self.text, True)
+                        #--------------------------------------------#
+                            MDTextField:
+                                size_hint: (0.1, 0.3)
+                                id: menu_password
+                                hint_text: 'password'
+                                #on_text: root.set_list_md_icons(self.text, True)
+                        #--------------------------------------------#
+                            RoundedButtonTtable:
+                                id: ButtonSignUp
+                                text: "Sign Up"
+                                # padding: 5,5
+                                size_hint: (0.1, 0.2)
+                                text_size: self.width, self.width
+                                on_press: 
+                                    root.pressed_button_SignUp("Sign_up")
+                        #--------------------------------------------#
+                            RoundedButtonTtable:
+                                id: ButtonLogin
+                                text: "Login"
+                                # padding: 5,5
+                                size_hint: (0.1, 0.2)
+                                text_size: self.width, self.width
+                                on_press: 
+                                    root.pressed_button_login("Login")
                                                 
 #----------------------------------------------------------------------------#
                 
@@ -149,21 +165,21 @@
                 name:'signup'
                 text: 'signup'
                 icon: 'receipt'
-                on_tab_press: root.pressed_button_SignUp("Sign_up")
+                on_tab_press: root.pressed_button_SignUp()
 
             MDBottomNavigationItem:
                 name:'signup2'
                 text: 'Verification'
                 icon: 'receipt'
                 # i use signup page to restrict users from accessing verification page directly
-                on_tab_press: root.pressed_button_SignUp("Sign_up")
+                on_tab_press: root.pressed_button_Verify()
 
             MDBottomNavigationItem:
                 id: Voice
                 name:'Kira'
                 text: "Talk to Kira"
                 icon: 'face'
-                on_tab_press: root.talk_kira()
+                on_tab_press: root.pressed_button_kira()
 
             MDBottomNavigationItem:
                 name:'user_menu'

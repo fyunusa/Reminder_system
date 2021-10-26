@@ -9,3 +9,4 @@ Automated reminders can help you build habits but it can also help you remember 
 My advice is to set reminders for just about everything so you never have to think about it — and never have to worry about forgetting.
 Your weekly review is a good time to enter new reminders for the coming weeks or months. I simply don't want to think about what I'm supposed to be doing; I want to be reminded so I can think just about actually doing it.
 
+python -m pip install --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org --upgrade pip

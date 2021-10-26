@@ -11,6 +11,14 @@
             md_bg_color: .2,.2,.2,1
             specific_text_color: 1,1,1,1
             icon: 'accounts-list'
+        
+        RoundedButtonTtable:
+            id: data_deleter
+            text: "Click to Delete"
+            size_hint: (0.2, 0.1)
+            #font_size: 40
+            on_release:
+                root.check_data_deleter()
 
         MDBottomNavigation:
             #color stuff
@@ -37,6 +45,14 @@
                         on_release:
                             root.clicker_button()
                     
+                    RoundedButtonTtable:
+                        id: assignment_widget
+                        text: "Click to View Assignments"
+                        size_hint: (0.3, 0.1)
+                        #font_size: 40
+                        on_release:
+                            root.clicker_button2()
+                    
             #----------------------------------------------------------------------------#
 
             MDBottomNavigationItem:
@@ -57,11 +73,6 @@
                 icon: 'account-box'
                 on_tab_press: root.pressed_button_usermenu("UserMenu")
 
-            MDBottomNavigationItem:
-                name:'Assignments'
-                text: 'Assignments'
-                icon: 'file'
-                #on_tab_press: root.pressed_button_assignments("Assignment")
 #----------------------------------------------------------------------------#
 
 <RoundedButtonTtable@Button>
