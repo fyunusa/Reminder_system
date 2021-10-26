@@ -1,0 +1,9 @@
+import speech_recognition as sr
+import pyjokes
+import pyttsx3
+import kivy
+import kivymd
+import pyaudio
+pyinstaller #to compile as desktop app
+Buildozer #to compile as mobile app
+
