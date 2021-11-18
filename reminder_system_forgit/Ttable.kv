@@ -1,0 +1,143 @@
+#:import Factory kivy.factory.Factory
+
+<TimeTable_page>:
+    id: record_widget
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        ActionBar:
+            size: root.width, 50
+            pos: 0,550
+
+            ActionView:
+                spacing: 5
+                padding:[5,5,5,5]
+
+                ActionPrevious:
+                    title: "Records"
+                    with_previous: False
+                    app_icon: '' if self.app_icon is not None else "./icons/folder.png"
+
+                ActionButton:
+                    text: 'Records'
+                    icon: './icons/folder.png'
+                    values: app.screen_names
+                    background_color: (5, 0, 0, 0.3)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+           
+                ActionButton:
+                    text: "Home"
+                    # icon: './icons/home-page.png'
+                    on_release: root.pressed_button_home("Home")
+                    background_color: (5, 0, 0, 0.3)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+
+                ActionButton:
+                    text: "Kira"
+                    # icon: './icons/Assistant.png'
+                    on_release: root.pressed_button_kira()
+                    background_color: (5, 0, 0, 0.3)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+
+                ActionButton:
+                    text: "User-Menu"
+                    # icon: './icons/menu.png'
+                    on_release: root.pressed_button_usermenu("UserMenu")
+                    background_color: (5, 0, 0, 0.3)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+
+                ActionButton:
+                    text: "Scheduler"
+                    # icon: './icons/edit.png'
+                    on_release: root.pressed_button_scheduler("Scheduler")
+                    background_color: (5, 0, 0, 0.3)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+        
+        RoundedButtonTtable:
+            id: data_deleter
+            text: "Click to Delete"
+            size_hint: (0.2, 0.1)
+            #font_size: 40
+            on_release:
+                root.check_data_deleter()
+
+        #----------------------------------------------------------------------------#
+        BoxLayout:
+            orientation: 'horizontal'
+            size: root.width, root.height
+            spacing:10
+            padding:  [10, 10, 10, 10]
+            #padding_bottom: 
+
+            RoundedButtonTtable:
+                id: timetable_widget
+                text: "Click to View TimeTable"
+                size_hint: (0.3, 0.1)
+                #font_size: 40
+                on_release:
+                    root.clicker_button()
+            
+            RoundedButtonTtable:
+                id: assignment_widget
+                text: "Click to View Assignments"
+                size_hint: (0.3, 0.1)
+                #font_size: 40
+                on_release:
+                    root.clicker_button2()
+            
+            RoundedButtonTtable:
+                id: otherTask_widget
+                text: "Click to View Other Schedules"
+                size_hint: (0.3, 0.1)
+                on_release:
+                    root.clicker_button3()
+            
+            #----------------------------------------------------------------------------#
+#----------------------------------------------------------------------------#
+
+<RoundedButtonTtable@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (48/255, 84/255, 150/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(40,40), (40, 40), (40, 40), (40, 40)]
+            
+
+
+

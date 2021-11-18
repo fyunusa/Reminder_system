@@ -1,0 +1,374 @@
+#:import Factory kivy.factory.Factory
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import threading threading
+#:import win kivy.core.window
+
+<MyTile@SmartTileWithLabel>
+    id:my_tile
+    size_hint_y: None
+    height: "350dp"
+ #--------------------------------------------#
+<pop@Popup>
+# :import mp main
+    auto_dismiss: True
+    id: popup_header
+    title: ""
+    size_hint: 0.6, 0.6
+    pos_hint: {"x": 0.2, "top": 0.9}
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        MDTextField:
+            id: popuptext
+            hint_text: ""
+            #text: "Something inside of my popup box"
+            text: ""
+            multiline: True
+            font_size: 16
+            size_hint: 1, 0.9
+            color: (0,1,0,1)
+
+        Button:
+            text: "Dismiss me"
+            font_size: 20
+            size_hint: 1, 0.1
+            on_release: root.dismiss()
+#-----------------------------------------------------------#
+
+<pop_alarm@Popup>
+    auto_dismiss: False
+    id: alarm_popup_header
+    title: "Class is now "
+    size_hint: 0.3, 0.3
+    pos_hint: {"x": 0.2, "top": 0.9}
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        MDTextField:
+            id: alarm_popuptext
+            hint_text: ""
+            text: "Hi it's Kira again your schedule class is now i believe you're ready..."
+            multiline: True
+            font_size: 16
+            size_hint: 1, 0.9
+            color: (0,1,0,1)
+
+        BoxLayout:
+            orientation: "horizontal"
+            size: root.width, root.height
+
+            Button:
+                id: dismis
+                text: "Dismiss"
+                # font_size: 20
+                size_hint: 1, 0.1
+                on_release: app.keyboard_listener_dismiss(),root.dismiss()
+
+            Button:
+                text: "Snooze me"
+                # font_size: 20
+                size_hint: 1, 0.1
+                on_release: app.keyboard_listener_snooze(),root.dismiss()
+            
+#-----------------------------------------------------------#
+
+<UserMenu_page>:
+    #------appending widget3 to slide_text----#
+    
+    #-----------#
+    BoxLayout:
+        orientation: 'vertical'
+        background_color: utils.get_color_from_hex('#EEE2DC')
+        # background_color: utils.get_color_from_hex('#EDC7B7')
+        canvas.before:
+            Color:
+                rgba: self.background_color 
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        ActionBar:
+            size: root.width, 50
+            pos: 0,550
+
+            ActionView:
+                spacing: 5
+                padding:[5,5,5,5]
+                background_color: utils.get_color_from_hex('#7E685A')
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        # radius: [20]
+
+                ActionPrevious:
+                    title: "UserMenu"
+                    with_previous: False
+                    app_icon: '' if self.app_icon is not None else "./icons/home.png"
+
+
+                ActionButton:
+                    text: "Usermenu"
+                    size_hint: (1, 1)
+                    on_release: root.exam_date()
+                    background_color: utils.get_color_from_hex('#C2B9B0')
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+
+                ActionButton:
+                    text: "Home"
+                    size_hint: (1, 1)
+                    on_release: root.pressed_button_home("Home")
+                    background_color: utils.get_color_from_hex('#C2B9B0')
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+
+                ActionButton:
+                    text: "Kira"
+                    size_hint: (1, 1)
+                    on_release: root.pressed_button_kira()
+                    background_color: utils.get_color_from_hex('#C2B9B0')
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+                            # radius: [(40,40), (0, 0), (0, 0), (40, 40)]
+
+                ActionButton:
+                    text: "Scheduler"
+                    size_hint: (1, 1)
+                    on_release: root.pressed_button_scheduler("Scheduler")
+                    background_color: utils.get_color_from_hex('#C2B9B0')
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+
+               
+        BoxLayout:
+            orientation: 'vertical'
+            spacing:2
+            # padding: 30
+    #------------------------###############-----------------------------------#
+            GridLayout:
+                cols: 2
+                size: root.width, root.height
+                spacing:10
+                # padding: 30
+                padding:[10,10,10,0]
+                size_hint: (1.0, 0.3)
+                # background_color: (5, 0, 0, 0.3)
+                #     #border: 10, 10, 10, 10
+                # canvas.before:
+                #     Color:
+                #         rgba: self.background_color
+                #     Rectangle:
+                #         size: self.size
+                #         pos: self.pos
+
+                RoundedLabel_Umenu1:
+                    id: user_menu_widget1
+                    text: root.exam_date()
+                    font_size: 30
+                    #background_color: (0, 0, 255, 0.3)
+                    spacing:[10, 0]
+
+                RoundedLabel_Umenu2:
+                    id: user_menu_widget2
+                    text: ""
+                    size_hint: (0.3, 0.5)
+                    font_size: 30
+    #------------------------###############-----------------------------------#
+            Carousel:
+                id: umenu_scater_carousel
+
+                MDGridLayout:
+                    id: umenu_s_c_gridlayout
+                    cols: 3
+                    adaptive_height: True
+                    padding: dp(4), dp(4)
+                    spacing: dp(4)
+                    size_hint: (1, 1)
+                
+
+                    MyTile:
+                        id: umenu_tile1
+                        source: "./carousel_images_Umenu/0.jpg"
+                        text: "[size=26]Cat 1[/size]\n[size=14]./images/s4.jpg[/size]"
+
+                    MyTile:
+                        id: umenu_tile2
+                        source: "./carousel_images_Umenu/1.jpg"
+                        text: "[size=26]Cat 2[/size]"
+
+                    MyTile:
+                        id: umenu_tile3
+                        source: "./carousel_images_Umenu/2.jpg"
+                        text: "[size=26]Cat 3[/size]"
+                    
+                #--------------------------------------------#  
+        #------------------------###############-----------------------------------#
+
+            BoxLayout:
+                text: "i  am the Inner BoxLayout" 
+                spacing:5
+                # padding: 30
+                padding:[10,0,10,10]
+                orientation: 'vertical'
+                size_hint: (1, 0.5)
+
+                Carousel:
+                    id: schedule_carousel
+                    direction: 'right'      
+                    allow_stretch: True  
+                    size_hint: (1.0, 0.4)
+                    background_color: utils.get_color_from_hex('#C2B9B0')
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [10]
+
+                    Label:
+                        id: user_menu_widget3
+                        text: "Upcoming Scheduled classes"
+                        size_hint: (1.0, 6.0)
+                        # background_color: (0, 0, 255, 0.3)
+                        # background_color: (0,0,1,1)
+                        # #border: 10, 10, 10, 10
+                        # canvas.before:
+                        #     Color:
+                        #         rgba: self.background_color
+                        #     Rectangle:
+                        #         size: self.size
+                        #         pos: self.pos
+                
+                Carousel:
+                    id: schedule_carousel2
+                    direction: 'right'      
+                    allow_stretch: True   
+                    size_hint: (1.0, 0.5) 
+                    # background_color: (200,247,197,1.0)
+                    # background_color: utils.get_color_from_hex('#c1f9a2')
+                    background_color: utils.get_color_from_hex('#7E685A')
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [10]
+
+                    Label:
+                        id: user_menu_widget4
+                        text: "Upcoming other task"
+                        size_hint: (1.0, 6.0)
+                       
+                
+                Button:
+                    text: "popup the box"
+                    on_press: root.slide_it()
+                    size_hint: (1.0, 0.2) 
+                    # on_press: app.pressed_button_alarm()
+                    on_press: root.tile_change()
+                
+
+            # GridLayout:
+            #     cols: 2
+            #     spacing:10
+            #     padding: 30
+            #     size_hint: (1.0, 0.5)
+                
+            #     AssignmentsButton2:
+            #         text: "Records"
+            #         size_hint: (0.1, 0.1)
+            #         on_press:
+            #             root.pressed_button_record("TimeTable") 
+                    
+            #     AssignmentsButton:
+            #         text: "Assignments"
+            #         size_hint: (0.1, 0.1)
+            #         on_press:
+            #             root.pressed_button_record("TimeTable")
+                    
+#----------------------------------------------------------------------------#
+
+<RoundedLabel_Umenu2@Label>
+    # background_color: (0,0,0,0)
+    background_color: utils.get_color_from_hex('#C2B9B0')
+    background_normal: ''
+    canvas.before:
+        Color:
+            # rgba: (48/255, 84/255, 150/255, 1)
+            rgba: self.background_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(0,0), (40, 40), (40, 40), (0, 0)]
+            
+
+<RoundedLabel_Umenu1@Label>
+    # background_color: (0,0,0,0)
+    background_color: utils.get_color_from_hex('#7E685A')
+    background_normal: ''
+    canvas.before:
+        Color:
+            # rgba: (0, 0, 255, 0.3)
+            rgba: self.background_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(40,40), (0, 0), (0, 0), (40, 40)]
+            
+<AssignmentsButton2@Button>
+    background_color: utils.get_color_from_hex('#C2B9B0')
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (0, 0, 255, 0.3)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(40,40), (0, 0), (0, 0), (40, 40)]
+
+<AssignmentsButton@Button>
+    # background_color: utils.get_color_from_hex('#EDC7B7')
+    background_color: utils.get_color_from_hex('#7E685A')
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(0, 0), (40, 40), (40, 40), (0, 0)]
+#----------------------------------------------------------------------------#
+

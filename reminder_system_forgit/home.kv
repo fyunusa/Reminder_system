@@ -1,0 +1,340 @@
+#: import utils kivy.utils
+#: import ScreenManager kivy.uix.screenmanager 
+#: import Screen kivy.uix.screenmanager 
+#:import Factory kivy.factory.Factory
+
+
+<Spinner>
+    spacing: 5
+    background_color: utils.get_color_from_hex('#C2B9B0')
+    color:  (0, 0, 255, 0.3)
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [20]
+
+<ActionSpinnerOptions@SpinnerOption>
+    background_normal: ''
+    spacing: 5
+    radius: [20]
+    # background_color: utils.get_color_from_hex('#C2B9B0')
+    # canvas.before:
+    #     Color:
+    #         rgba: self.background_color
+    #     RoundedRectangle:
+    #         size: self.size
+    #         pos: self.pos
+    #         radius: [20]
+    # background_color: .4, .4, .4, 1
+
+<ActionSpinner@Spinner+ActionItem>
+    background_normal: ''
+    spacing: 5
+    # border: 27, 20, 12, 12
+    option_cls: Factory.ActionSpinnerOptions
+    # background_color: utils.get_color_from_hex('#C2B9B0')
+    # canvas.before:
+    #     Color:
+    #         rgba: self.background_color
+    #     RoundedRectangle:
+    #         size: self.size
+    #         pos: self.pos
+    #         radius: [20]
+
+<MyTile@SmartTileWithLabel>
+    size_hint_y: None
+    height: "240dp"
+
+<Home_page@Widget>:
+    id: my_widget
+    
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        ActionBar:
+            size: root.width, 50
+            pos: 0,550
+        
+            ActionView:
+                spacing: 5
+                padding:[5,5,5,5]
+                background_color: utils.get_color_from_hex('#7E685A')
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        # radius: [20]
+
+                ActionPrevious:
+                    title: "Home"
+                    with_previous: False
+                    app_icon: '' if self.app_icon is not None else "./icons/home-page.png"
+
+                # ActionSpinner:
+                #     id: spnr
+                #     important: True
+                #     text: 'Jump to Screen'
+                #     values: app.screen_names
+                #     # source: "./icons/home-page.png"
+                #     on_text: 
+                #         root.Spinner_page()
+                #     background_color: utils.get_color_from_hex('#C2B9B0')
+                #     canvas.before:
+                #         Color:
+                #             rgba: self.background_color
+                #         RoundedRectangle:
+                #             size: self.size
+                #             pos: self.pos
+                #             radius: [20]
+
+                ActionButton:
+                    text: 'Home'
+                    values: app.screen_names
+                    size_hint: (1, 1)
+                    background_color: utils.get_color_from_hex('#C2B9B0')
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+
+                ActionButton:
+                    text: "SignUp"
+                    size_hint: (1, 1)
+                    on_release: root.pressed_button_SignUp()
+                    background_color: utils.get_color_from_hex('#C2B9B0')
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+           
+                ActionButton:
+                    text: "Login"
+                    size_hint: (1, 1)
+                    on_release: root.pressed_button_Login()
+                    background_color: utils.get_color_from_hex('#C2B9B0')
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+                
+                ActionButton:
+                    text: "Verify"
+                    size_hint: (1, 1)
+                    on_release: root.pressed_button_Verify()
+                    background_color: utils.get_color_from_hex('#C2B9B0')
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+
+                ActionButton:
+                    text: "User-Menu"
+                    # icon: './icons/application.png'
+                    size_hint: (1, 1)
+                    on_release: root.pressed_button_UMenu()
+                    background_color: utils.get_color_from_hex('#C2B9B0')
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+
+      
+        BoxLayout:
+            orientation: 'vertical'
+            padding:0
+#----------------------------------------------------------------------------#
+        #--------------------------------------------#
+            Carousel:
+                id: home_carousel
+                direction: 'right'      
+                allow_stretch: True    
+
+            #--------------------------------------------#
+                Image:
+                    id: image_tite
+                    size_hint: (1, 1)
+                    size: self.texture_size
+                    allow_stretch: True
+                    source: './carousel_images_Home/s4.jpg'
+
+
+                #--------------------------------------------#
+                
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1, 0.5)
+                spacing:10
+                # padding: 10
+                background_color: (255,99,71,0.8)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [10]
+
+                GridLayout:
+                    rows: 3
+                    # size_hint: (0.5, 0.5)
+                    spacing:5
+
+                    Slider:
+                        size_hint: (1, 0.05)
+                        id: slide_img
+                        min:
+                        max: 
+                        step: 
+                        orientation: "horizontal"
+                        on_value: root.slide_images()
+                #--------------------------------------------#
+                    Carousel:
+                        id: home_carousel_label1
+                        direction: 'right'      
+                        allow_stretch: True  
+                        size_hint: (1.0, 6.0)   
+                        # background_color: utils.get_color_from_hex('#7E685A')
+                        background_color: (0, 0, 0, 0.3)
+                        canvas.before:
+                            Color:
+                                rgba: utils.get_color_from_hex('#7E685A')
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [10]
+
+                        Label:
+                            id: quote_widget
+                            # padding: 50, 50
+                            padding_x: 2.5,1.5
+                            padding_y: 0.5,0.5
+                            text: "Any fool can know. The point is to understand.\nAlbert Einstein"
+                            background_color: (0, 0, 0, 0.3)
+                            # size_hint: (1, 0.5)
+                            text_size: self.width,self.height
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex('#7E685A')
+                                RoundedRectangle:
+                                    size: self.size
+                                    pos: self.pos
+                                    radius: [10]
+                    #--------------------------------------------#
+                    Carousel:
+                        id: home_carousel_label2
+                        direction: 'right'      
+                        allow_stretch: True  
+                        size_hint: (1.0, 6.0)   
+                        background_color: (0,45,255,0.1)
+                        canvas.before:
+                            Color:
+                                rgba: utils.get_color_from_hex('#C2B9B0')
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [10]
+
+                        MDLabel:
+                            id: advantage_widget
+                            text: "Seek and ye Shall find"
+                            padding_x: 2.5,1.5
+                            padding_y: 0.5,0.5
+                            text_size: self.width,self.height
+                            background_color: utils.get_color_from_hex('#C2B9B0')
+                            canvas.before:
+                                # Color:
+                                #     rgba: self.background_color
+                                RoundedRectangle:
+                                    size: self.size
+                                    pos: self.pos
+                                    radius: [10]
+        
+                #--------------------------------------------#
+                MDBoxLayout:
+                    # rows: 4
+                    orientation: 'vertical'
+                    spacing:10
+                    # padding: [10, 0, 0, 0]
+                    padding: "24dp", "8dp", 0, "8dp"
+                    adaptive_size: True
+                    size_hint: (0.4, 1)
+                    background_color: (0,0,0,0.1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [10]
+                #--------------------------------------------#
+                    
+                    MDTextFieldRound:
+                        size_hint: (0.8, 0.2)
+                        id: menu_username
+                        hint_text: 'username'
+                        icon_left: 'account'
+                        hint_text: 'username Field'
+                #--------------------------------------------#
+                    
+                    MDTextFieldRound:
+                        size_hint: (0.8, 0.2)
+                        id: menu_password
+                        hint_text: 'password'
+                        icon_left: 'key-variant'
+                        icon_right: 'eye-off'
+                        hint_text: 'password Field'
+                        password: True
+                
+                #--------------------------------------------#
+                    RoundedButtonSubmit:
+                        id: ButtonSignUp
+                        text: "Sign Up"
+                        padding: [50, 5]
+                        size_hint: (0.8, 0.15)
+                        on_press: 
+                            root.pressed_button_SignUp("Sign_up")
+                #--------------------------------------------#
+                    RoundedButtonSubmit:
+                        id: ButtonLogin
+                        text: "Login"
+                        padding: [50, 5]
+                        size_hint: (0.8, 0.15)
+                        on_press: 
+                            root.pressed_button_login("Login"),root.slide_carousel()
+                                                
+#----------------------------------------------------------------------------#
+#----------------------------------------------------------------------------#
+
+<RoundedButtonSubmit@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#7E685A')
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: [70]
+            radius: [(40,40), (40, 40), (40, 40), (40, 40)]
+  
+                                        

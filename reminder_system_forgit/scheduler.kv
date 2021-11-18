@@ -1,0 +1,266 @@
+#: import utils kivy.utils
+
+<scheduler_page@Widget>:
+    id: overall_scheduler
+    BoxLayout:
+        orientation: 'vertical'
+        
+
+        ActionBar:
+            size: root.width, 50
+            pos: 0,550
+
+            ActionView:
+                spacing: 5
+                padding:[5,5,5,5]
+
+                ActionPrevious:
+                    title: "Scheduler"
+                    with_previous: False
+                    app_icon: '' if self.app_icon is not None else "./icons/edit.png"
+
+
+                ActionButton:
+                    text: "Schedule"
+                    # icon: './icons/edit.png'
+                    values: app.screen_names
+                    size_hint: (1, 1)
+                    background_color: (5, 0, 0, 0.3)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+           
+                ActionButton:
+                    text: "Home"
+                    # icon: './icons/home-page.png'
+                    on_release: root.pressed_button_Home("Home")
+                    size_hint: (1, 1)
+                    background_color: (5, 0, 0, 0.3)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+
+                ActionButton:
+                    text: "Kira"
+                    # icon: './icons/Assistant.png'
+                    on_release: root.pressed_button_kira()
+                    size_hint: (1, 1)
+                    background_color: (5, 0, 0, 0.3)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+
+                ActionButton:
+                    text: "User-Menu"
+                    # icon: './icons/menu.png'
+                    on_release: root.pressed_button_usermenu("UserMenu")
+                    size_hint: (1, 1)
+                    background_color: (5, 0, 0, 0.3)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+
+                ActionButton:
+                    text: "Records"
+                    # icon: './icons/folder.png'
+                    on_release: root.pressed_button_record("TimeTable")
+                    size_hint: (1, 1)
+                    background_color: (5, 0, 0, 0.3)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [20]
+        
+#----------------------------------------------------------------------------#
+        MDBoxLayout:
+            orientation: 'vertical'
+        #--------------------------------------------#
+            Carousel:
+                # pos_hint: {"center_x" : 0.5, "center_y": 0.85}
+                # do_scroll: True
+                # scroll_type:  ['bars', 'content']
+                # adaptive_height: True 
+                size_hint: (1, 0.5)    
+                direction: 'right'   
+                background_color: (255,225,71,0.1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [10]    
+
+            #--------------------------------------------#
+                Image:
+                    size_hint: (1, 1)
+                    id: image_tite
+                    source: './images/convert1.jpg'     
+
+                #--------------------------------------------#
+            Slider:
+                size_hint: (0.8, 0.05)
+                pos_hint: {"center_x" : 0.45, "center_y": 0.7}
+                id: slide_img
+                min:
+                max: 
+                step: 
+                orientation: "horizontal"
+                on_value: root.slide_images(*args)
+
+            MDBoxLayout:
+                orientation: 'horizontal'
+                #size: root.width, root.height
+                spacing: 5
+                padding: [0,0,0,0]
+                # pos_hint: {"center_x" : 0.51, "center_y": 0.3}
+                size_hint: (1, 0.5)
+                background_color: (255,55,71,0.1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [10]   
+
+#----------------------------------------------------------------------------#
+#----scheduling classes-------------------------#
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    id: schedule_mom
+                    size_hint: (0.7, 1)
+                    padding: 10
+                    spacing: 5
+                    background_color: (255,99,71,0.8)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [10]
+                    
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        id: schedule_something
+                        size_hint: (1, 0.9)
+                        padding: 10
+                        spacing: 5
+                        background_color: (255,99,51,0.5)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [10]
+                        
+                        Image:
+                            id: gif
+                            source:'./images/gif3.gif'
+                            allow_stretch: True
+                            anim_delay: 0.10
+                            anim_loop: 0
+                            
+                        
+
+                    MDBoxLayout:
+                        orientation: 'horizontal'
+                        size_hint: (1, 0.1)
+                        id: schedule_something2
+                        spacing: 20
+                        padding: [10, 0, 0, 0]
+                        background_color: (255,99,255,0.1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [10]
+
+#--------------------------------scheduling assignments section of div--------------------------------------------#
+
+
+#----------------------------------------------------------------------------#
+
+                MDBoxLayout:
+                    id: schedule_right
+                    padding: 10
+                    spacing: 10
+                    orientation: 'vertical'
+                    size_hint: (0.31, 1)
+                    # pos_hint: {"center_x" : 0, "center_y": 0.6}
+                    background_color: (255,99,71,0.1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [10]
+
+                    MDRoundFlatButton:
+                        text: "Schedule a Class ?"
+                        size_hint: (1, 0.14)
+                        id: class_scheduler
+                        font_size: 12
+                        background_normal: ''
+                        background_color: utils.get_color_from_hex('#eefa00')
+                        on_press: root.schedule_class()
+
+                    MDRoundFlatButton:
+                        text: "Schedule an  Assignment ?"
+                        size_hint: (1, 0.15)
+                        id: assignment_scheduler
+                        font_size: 12
+                        on_press:root.schedule_assignment()
+                        background_normal: ''
+                        background_color: (0,0,1,1)
+                    
+                    MDRoundFlatButton:
+                        text: "Schedule other task"
+                        size_hint: (1, 0.15)
+                        id: assignment_scheduler
+                        font_size: 12
+                        on_press:root.schedule_others()
+                        background_normal: ''
+                        background_color: (0,0,1,1)
+                    
+                    Label:
+                        id: quote_widget2
+                        #padding_y: 100
+                        text: "Any fool can know \nAlbert Einstein"
+                        text_size: self.width, None
+                        background_color: (0,0,1,1)
+                        size_hint: (1, 0.8)
+                        #background_color: utils.get_color_from_hex('#003366')
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [10]
+
+#----------------------------------------------------------------------------#

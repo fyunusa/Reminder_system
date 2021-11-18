@@ -1,0 +1,326 @@
+#: import utils kivy.utils
+
+<Sign_up_page>:
+    Screen:
+        BoxLayout:
+            orientation: 'vertical'
+
+            ActionBar:
+                size: root.width, 50
+                pos: 0,550
+
+                ActionView:
+                    spacing: 5
+                    padding:[5,5,5,5]
+
+                    ActionPrevious:
+                        title: "SignUp"
+                        with_previous: False
+                        app_icon: '' if self.app_icon is not None else "./icons/home-page.png"
+
+                    ActionButton:
+                        text: 'Sign-Up'
+                        # icon: './icons/add-user.png'
+                        background_color: (5, 0, 0, 0.3)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [20]
+                
+                    ActionButton:
+                        text: "Home"
+                        # icon: './icons/home-page.png'
+                        on_release: root.pressed_button_home("Home")
+                        background_color: (5, 0, 0, 0.3)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [20]
+
+                    ActionButton:
+                        text: "Verify Account"
+                        # icon: './icons/user.png'
+                        on_release: root.pressed_button_Verify("verify")
+                        background_color: (5, 0, 0, 0.3)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [20]
+                    
+                    ActionButton:
+                        text: "Login"
+                        # icon: './icons/login1.png'
+                        on_release: root.pressed_button_login("Login")
+                        background_color: (5, 0, 0, 0.3)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [20]
+            
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 25
+                spacing: 25
+                
+                MDTextFieldRound:
+                    id: F_name
+                    hint_text: "First Name"
+                    icon_left: "account"
+                    size_hint_x: None
+                    helper_text: "Your First Name should Be Here"
+                    #helper_text_mode: "persistent"
+                    width: 500
+                    font_size: 18
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextFieldRound:
+                    id: S_name
+                    hint_text: "Surname"
+                    icon_left: "account"
+                    helper_text: "Your Surname should Be Here"
+                    size_hint_x: None
+                    width: 500
+                    font_size: 18
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextFieldRound:
+                    id: School
+                    hint_text: "School"
+                    icon_left: "school"
+                    helper_text: "University or other High schools"
+                    size_hint_x: None
+                    width: 500
+                    font_size: 18
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextFieldRound:
+                    id: Email
+                    hint_text: "Email"
+                    icon_left: "email"
+                    helper_text: "Your mail in this section"
+                    size_hint_x: None
+                    width: 500
+                    font_size: 18
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextFieldRound:
+                    id: Faculty
+                    hint_text: "Faculty"
+                    icon_left: "building"
+                    size_hint_x: None
+                    width: 500
+                    font_size: 18
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextFieldRound:
+                    id: Department
+                    hint_text: "Department"
+                    icon_left: "magnify"
+                    size_hint_x: None
+                    width: 500
+                    font_size: 18
+                    pos_hint: {"center_x": 0.5}
+
+                MDGridLayout:
+                    cols: 3
+                    spacing: 30
+                    padding: 20
+                    pos_hint: {"center_x" : 0.8, "center_y": 0}
+
+                    MDRoundFlatButton:
+                        text: "SUBMIT"
+                        font_size: 12
+                        #pos_hint: {"center_x": 0.5}
+                        background_normal: ''
+                        background_color: utils.get_color_from_hex('#eefa00')
+                        on_press: 
+                            root.pressed_button_submit()
+                        
+                    MDRoundFlatButton:
+                        text: "CLEAR"
+                        font_size: 12
+                        #pos_hint: {"center_x": 0.5}
+                        background_normal: ''
+                        background_color: (0,0,1,1)
+                        on_press: 
+                            root.signup_clear()
+                        
+
+                    MDRoundFlatButton:
+                        text: "Back Screen"
+                        font_size: 12
+                        pos_hint: {"center_x": 0.5}
+                        background_normal: ''
+                        background_color: (0,0,1,1)
+                        on_press: 
+                            root.pressed_button_home("Home")
+#----------------------------------------------------------------------------#
+
+<verify_page>:
+    Screen:
+        BoxLayout:
+            orientation: 'vertical'
+
+
+            ActionBar:
+                size: root.width, 50
+                pos: 0,550
+
+                ActionView:
+                    spacing: 5
+                    padding:[5,5,5,5]
+
+                    ActionPrevious:
+                        title: "Verify"
+                        with_previous: False
+                        app_icon: '' if self.app_icon is not None else "./icons/home.png"
+
+                    ActionButton:
+                        # icon: './icons/edit.png'
+                        text: 'Verity'
+                        background_color: (5, 0, 0, 0.3)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [20]
+ 
+
+                    ActionButton:
+                        text: "Home"
+                        # icon: './icons/home.png'
+                        on_release: root.pressed_button_home("Home")
+                        background_color: (5, 0, 0, 0.3)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [20]
+
+                    ActionButton:
+                        text: "SignUp"
+                        # icon: './icons/add-user.png'
+                        on_release: root.pressed_button_SignUp("Sign_up")
+                        background_color: (5, 0, 0, 0.3)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [20]
+                    
+                    ActionButton:
+                        text: "Login"
+                        # icon: './icons/login1.png'
+                        on_release: root.pressed_button_login("Login")
+                        background_color: (5, 0, 0, 0.3)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [20]
+    
+            
+
+
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 25
+                spacing: 25
+    
+
+                MDLabel:
+                    id: welcome_label
+                    text: ""
+                    font_size: 20
+                    halign: 'center'
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    padding_y: 15
+
+                MDLabel:
+                    id: welcome_label2
+                    text: ""
+                    font_size: 20
+                    halign: 'center'
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    padding_y: 15
+
+                MDTextFieldRound:
+                    id: username
+                    hint_text: "username"
+                    icon_left: "account"
+                    helper_text: "Your username should Be Here"
+                    size_hint_x: None
+                    width: 500
+                    font_size: 18
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextFieldRound:
+                    id: password1
+                    hint_text: "password"
+                    icon_left: "eye-off"
+                    helper_text: "Your password should Be Here"
+                    size_hint_x: None
+                    width: 500
+                    font_size: 18
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextFieldRound:
+                    id: password2
+                    hint_text: "password"
+                    icon_left: "eye-off"
+                    helper_text: "Your password should Be Here"
+                    size_hint_x: None
+                    width: 500
+                    font_size: 18
+                    pos_hint: {"center_x": 0.5}
+                
+                MDGridLayout:
+                    cols: 2
+                    spacing: 30
+                    padding: 20
+                    pos_hint: {"center_x" : 0.8, "center_y": 0}
+
+                    MDRoundFlatButton:
+                        text: "SUBMIT"
+                        font_size: 12
+                        #pos_hint: {"center_x": 0.5}
+                        background_normal: ''
+                        background_color: utils.get_color_from_hex('#eefa00')
+                        on_press: 
+                            root.pressed_button_submit()
+                        
+                    MDRoundFlatButton:
+                        text: "CLEAR"
+                        font_size: 12
+                        #pos_hint: {"center_x": 0.5}
+                        background_normal: ''
+                        background_color: (0,0,1,1)
+                        on_press: 
+                            root.signup_clear()
+                        
+                        
+#----------------------------------------------------------------------------#
+                
+              
